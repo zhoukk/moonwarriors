@@ -22,9 +22,6 @@ obj.btn_back.text_back.text = "Go Back"
 obj.sound.text = "Sound"
 obj.mode.text = "Mode"
 
-obj.btn_sound.text_sound.text = enum_sound[game.sound]
-obj.btn_mode.text_mode.text = enum_mode[game.mode]
-
 ui:button("ui.option.btn_sound", function()
 	if game.sound == 1 then
 		game.sound = 2
@@ -46,6 +43,24 @@ ui:button("ui.option.btn_back", function()
 	audio.play("asset/wav/buttonEffet_new.wav")
 	ui:show("ui.loading")
 end)
+
+
+function m:show()
+	obj.btn_sound.text_sound.text = enum_sound[game.sound]
+	obj.btn_mode.text_mode.text = enum_mode[game.mode]
+end
+
+function m:hide()
+
+end
+
+function m:draw()
+	obj:draw()
+end
+
+function m:update()
+
+end
 
 m.obj = obj
 return m

@@ -16,6 +16,8 @@ pixel.size(320, 480)
 game = {}
 game.center_x = 160
 game.center_y = 240
+game.width = 320
+game.height = 480
 game.sound = 1
 game.mode = 1
 game.score = 20

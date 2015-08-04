@@ -5,11 +5,26 @@ local m = {}
 
 local obj = pixel.sprite("warrior", "over")
 obj.btn_playagain.message = true
-obj.text_score.text = "You score is "..game.score
 
 ui:button("ui.over.btn_playagain", function()
 	ui:show("ui.loading")
 end)
+
+function m:show()
+	obj.text_score.text = "You score is "..game.score
+end
+
+function m:hide()
+
+end
+
+function m:draw()
+	obj:draw()
+end
+
+function m:update()
+
+end
 
 m.obj = obj
 return m
