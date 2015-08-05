@@ -34,7 +34,7 @@ end
 pixel.start {
 	drawframe = function()
 		pixel.clear(0xff808080)
-		shader.blend(770, 771)
+		shader.blend(BLEND_SRC_ALPHA, BLEND_ONE_MINUS_SRC_ALPHA)
 		ui:draw()
 	end,
 	update = function()

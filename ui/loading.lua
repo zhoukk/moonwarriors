@@ -28,13 +28,8 @@ obj.ship = pixel.sprite("ship", "ship")
 local pos = {}
 local tar = {}
 
-local moving = false
-
 local function move_end(obj)
 	obj:ps(pos.x, pos.y)
-	if not moving then
-		return
-	end
 	pixel.tween(obj, 20+20*math.random(), pos, tar, function(obj)
 		if tar.y > 0 then
 			pos.x = tar.x
@@ -58,12 +53,11 @@ function m:show()
 	pos.y = game.height
 	tar.x = math.random()*game.width
 	tar.y = 200+math.random()*20
-	moving = true
 	move_end(obj.ship)
 end
 
 function m:hide()
-	moving = false
+	pixel.remove_tween(obj.ship)
 end
 
 function m:draw()
