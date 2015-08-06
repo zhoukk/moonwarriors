@@ -20,7 +20,7 @@ game.width = 320
 game.height = 480
 game.sound = 1
 game.mode = 1
-game.score = 20
+game.score = 0
 game.life = 4
 
 math.randomseed(os.time())
