@@ -24,6 +24,7 @@ function bullet:draw()
 end
 
 function bullet_meta:run(x, y)
+    self.obj.visible = true
     self.obj:ps(x, y)
     pixel.tween(self.obj, bullet.speed, {x=x,y=y}, {x=x, y=0}, function(obj)
         self:free()
@@ -34,6 +35,7 @@ function bullet_meta:run(x, y)
 end
 
 function bullet_meta:free()
+    self.obj.visible = false
     for i, v in ipairs(bullet.bullets) do
 		if v == self then
 			table.remove(bullet.bullets, i)

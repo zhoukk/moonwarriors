@@ -17,6 +17,10 @@ function emery_bullet:new()
     end
 end
 
+function emery_bullet:stop()
+    self.emery_bullets = {}
+end
+
 function emery_bullet:draw()
     for i, v in ipairs(emery_bullet.emery_bullets) do
         v.obj:draw()

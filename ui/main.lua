@@ -15,9 +15,6 @@ local m = {}
 local obj = pixel.sprite("warrior", "main")
 obj.btn_menu.message = true
 obj.btn_menu.menu.text = "Main Menu"
-obj.life.text = "#[red]"..game.life.."#[stop]"
-obj.score.text = "Score: "..game.score
-
 
 ui:button("ui.main.btn_menu", function()
 	ui:show("ui.loading")
@@ -43,6 +40,10 @@ function m:show()
 	if game.sound == 1 then
 		audio.play("asset/wav/bgMusic_new.wav")
 	end
+	game.score = 0
+	game.life = 4
+	obj.life.text = "#[red]"..game.life.."#[stop]"
+	obj.score.text = "Score: "..game.score
 
 	map:init()
 	player:init(game.center_x, game.height-60)
@@ -52,6 +53,8 @@ end
 
 function m:hide()
 	player:stop_shot()
+	emery:stop()
+	emery_bullet:stop()
 end
 
 function m:draw()
@@ -72,25 +75,47 @@ function m:touch(what, x, y)
 	player:touch(what, x, y)
 end
 
+local function player_die()
+	game.life = game.life - 1
+	if game.life == 0 then
+		ui:show("ui.over")
+	end
+	obj.life.text = "#[red]"..game.life.."#[stop]"
+end
+
 function m:update()
 	map:update()
 
-	for i, v in ipairs(bullet.bullets) do
-		for j, k in ipairs(emery.emerys) do
+	for i, v in ipairs(emery.emerys) do
+		for j, k in ipairs(bullet.bullets) do
 			if collide(v.obj, k.obj) then
-				if k:hurt() <= 0 then
-					local x1,y1,x2,y2 = k.obj:aabb()
+				k:free()
+				if v:hurt() <= 0 then
+					local x1,y1,x2,y2 = v.obj:aabb()
 					local e = explosion:new()
 					e:run((x2+x1)/2, (y2+y1)/2)
 					v:free()
-					k:free()
 					game.score = game.score + 10
 					obj.score.text = "Score: "..game.score
 				end
 			end
 		end
+		if collide(v.obj, player.obj) then
+			v:free()
+			player_die()
+			break
+		end
 	end
 
+	for i, v in ipairs(emery_bullet.emery_bullets) do
+		if collide(v.obj, player.obj) then
+			v:free()
+			if player:hurt() <= 0 then
+				player_die()
+				break
+			end
+		end
+	end
 end
 
 m.obj = obj

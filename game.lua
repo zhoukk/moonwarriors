@@ -11,17 +11,17 @@ pack.load {
 }
 pixel.font "asset/pixel.ttf"
 pixel.fps(30)
-pixel.size(320, 480)
+pixel.size(320)
+
+local w, h = pixel.size()
 
 game = {}
-game.center_x = 160
-game.center_y = 240
-game.width = 320
-game.height = 480
+game.center_x = w/2
+game.center_y = h/2
+game.width = w
+game.height = h
 game.sound = 1
 game.mode = 1
-game.score = 0
-game.life = 4
 
 math.randomseed(os.time())
 
