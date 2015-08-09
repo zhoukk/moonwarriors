@@ -18,6 +18,9 @@ function emery_bullet:new()
 end
 
 function emery_bullet:stop()
+    for i, v in ipairs(self.emery_bullets) do
+        v:free()
+    end
     self.emery_bullets = {}
 end
 

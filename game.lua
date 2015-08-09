@@ -11,9 +11,10 @@ pack.load {
 }
 pixel.font "asset/pixel.ttf"
 pixel.fps(30)
-pixel.size(320)
 
-local w, h = pixel.size()
+local w, h = 320, 480
+
+pixel.size(w, h)
 
 game = {}
 game.center_x = w/2
