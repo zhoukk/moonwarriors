@@ -20,10 +20,7 @@ end
 
 function player:shot()
 	pixel.play(self.obj)
-	pixel.timeout(self._shot_speed, function()
-		if self._shot_stop then
-			return "exit"
-		end
+	self._shot_stop = pixel.timeout(self._shot_speed, function()
 		shot_side(13)
 		shot_side(-13)
 	end)
@@ -35,7 +32,7 @@ function player:hurt()
 end
 
 function player:stop_shot()
-	self._shot_stop = true
+	self._shot_stop()
 end
 
 local old_x = 0

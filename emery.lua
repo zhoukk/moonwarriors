@@ -26,11 +26,7 @@ function emery:draw()
 end
 
 function emery:start()
-    self._stop = false
-    pixel.timeout(15, function()
-        if self._stop then
-            return "exit"
-        end
+    self._cancel = pixel.timeout(15, function()
         local i = math.random(1, 5)
         local e = self:new("E"..i)
         e:run(math.random(10, game.width-10), 0)
@@ -38,14 +34,16 @@ function emery:start()
 end
 
 function emery:stop()
-    self._stop = true
+    self._cancel()
+    for i, v in ipairs(emery.emerys) do
+        v:free()
+    end
     self.emerys = {}
 end
 
 function emery_meta:run(x, y)
     self.x = x
     self.y = y
-    self._shot_stop = false
     self.hp = 100
     self.obj:ps(self.x, self.y)
     if math.random(0, 100) > 70 then
@@ -62,10 +60,7 @@ function emery_meta:run(x, y)
             self.y = p.y
             obj:ps(self.x, self.y)
         end)
-        pixel.timeout(math.random(20, 30), function()
-            if self._shot_stop then
-                return "exit"
-            end
+        self._shot_stop = pixel.timeout(math.random(20, 30), function()
             self:shot(20)
         end)
     end
@@ -108,9 +103,12 @@ function emery_meta:dive()
 end
 
 function emery_meta:free()
-    self._shot_stop = true
     for i, v in ipairs(emery.emerys) do
         if v == self then
+            if self._shot_stop then
+                self._shot_stop()
+                self._shot_stop = nil
+            end
             table.remove(emery.emerys, i)
             if not emery.free_emerys[self.name] then
                 emery.free_emerys[self.name] = {}
