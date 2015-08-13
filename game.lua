@@ -1,10 +1,16 @@
-package.path = package.path .. ";../pixel/pixel_c/lualib/?.lua"
+package.path = package.path .. ";../pixel/pixel_c/lualib/?.lua;../pixel/pixel_c/util/?.lua"
 
 pixel = require "pixel"
 pack = require "spritepack"
 shader = require "shader"
 ui = require "ui"
-audio = require "audio"
+local move = require "move"
+local time = require "time"
+local animation = require "animation"
+audio = {}
+function audio:play()
+
+end
 
 pack.load {
 	pattern = [[asset/?]]
@@ -40,6 +46,9 @@ pixel.start {
 	end,
 	update = function()
 		ui:update()
+		move()
+		time()
+		animation()
 	end,
 	touch = function(what, x, y)
 		if ui:touch(what, x, y) then
