@@ -25,7 +25,7 @@ obj.btn_back.text_back.text = "#[red]Go Back#[stop]"
 obj.text_about.text = text
 
 ui:button("ui.about.btn_back", function()
-	audio.play("asset/wav/buttonEffet_new.wav")
+	audio.play(buttonEffet_new)
 	ui:show("ui.loading")
 end)
 

@@ -40,7 +40,7 @@ ui:button("ui.option.btn_mode", function()
 end)
 
 ui:button("ui.option.btn_back", function()
-	audio.play("asset/wav/buttonEffet_new.wav")
+	audio.play(buttonEffet_new)
 	ui:show("ui.loading")
 end)
 

@@ -36,9 +36,12 @@ local function collide(obj1, obj2)
 	end
 end
 
+local bgMusic_new = 3
+audio.load(bgMusic_new, "asset/wav/bgMusic_new.wav")
+
 function m:show()
 	if game.sound == 1 then
-		audio.play("asset/wav/bgMusic_new.wav")
+		audio.play(bgMusic_new, true)
 	end
 	game.score = 0
 	game.life = 4
@@ -55,6 +58,7 @@ function m:hide()
 	player:stop_shot()
 	emery:stop()
 	emery_bullet:stop()
+	audio.stop(bgMusic_new)
 end
 
 function m:draw()

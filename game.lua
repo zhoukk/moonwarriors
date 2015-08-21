@@ -4,13 +4,11 @@ pixel = require "pixel"
 pack = require "spritepack"
 shader = require "shader"
 ui = require "ui"
+audio = require "pixel.audio"
 local move = require "move"
 local time = require "time"
 local animation = require "animation"
-audio = {}
-function audio:play()
 
-end
 
 pack.load {
 	pattern = [[asset/?]]
@@ -32,11 +30,13 @@ game.mode = 1
 
 math.randomseed(os.time())
 
-ui:show("ui.loading")
+mainMainMusic_new = 1
+audio.load(mainMainMusic_new, "asset/wav/mainMainMusic_new.wav")
 
-if game.sound == 1 then
-	audio.play("asset/wav/mainMainMusic_new.wav")
-end
+buttonEffet_new = 2
+audio.load(buttonEffet_new, "asset/wav/buttonEffet_new.wav")
+
+ui:show("ui.loading")
 
 pixel.start {
 	drawframe = function()
@@ -59,6 +59,6 @@ pixel.start {
 
 	end,
 	handle_error = function(...)
-		pixel.err(...)
+		pixel.log(...)
 	end,
 }

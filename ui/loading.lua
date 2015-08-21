@@ -9,17 +9,17 @@ obj.btn_option.message = true
 obj.btn_about.message = true
 
 ui:button("ui.loading.btn_new", function()
-	audio.play("asset/wav/buttonEffet_new.wav")
+	audio.play(buttonEffet_new)
 	ui:show("ui.main")
 end)
 
 ui:button("ui.loading.btn_option", function()
-	audio.play("asset/wav/buttonEffet_new.wav")
+	audio.play(buttonEffet_new)
 	ui:show("ui.option")
 end)
 
 ui:button("ui.loading.btn_about", function()
-	audio.play("asset/wav/buttonEffet_new.wav")
+	audio.play(buttonEffet_new)
 	ui:show("ui.about")
 end)
 
@@ -55,10 +55,14 @@ function m:show()
 	tar.x = math.random()*game.width
 	tar.y = 200+math.random()*20
 	move_end(obj.ship)
+	if game.sound == 1 then
+		audio.play(mainMainMusic_new, true)
+	end
 end
 
 function m:hide()
 	move_cancel()
+	audio.stop(mainMainMusic_new)
 end
 
 function m:draw()
