@@ -36,12 +36,11 @@ local function collide(obj1, obj2)
 	end
 end
 
-local bgMusic_new = 3
-audio.load(bgMusic_new, "asset/wav/bgMusic_new.wav")
+local bgmusic
 
 function m:show()
 	if game.sound == 1 then
-		audio.play(bgMusic_new, true)
+		bgmusic = audio.play(bgMusic_new, true)
 	end
 	game.score = 0
 	game.life = 4
@@ -58,7 +57,7 @@ function m:hide()
 	player:stop_shot()
 	emery:stop()
 	emery_bullet:stop()
-	audio.stop(bgMusic_new)
+	audio.stop(bgmusic)
 end
 
 function m:draw()
@@ -99,6 +98,7 @@ function m:update()
 					local e = explosion:new()
 					e:run((x2+x1)/2, (y2+y1)/2)
 					v:free()
+					audio.play(explodeEffect_new)
 					game.score = game.score + 10
 					obj.score.text = "Score: "..game.score
 				end
@@ -106,6 +106,7 @@ function m:update()
 		end
 		if collide(v.obj, player.obj) then
 			v:free()
+			audio.play(shipDestroyEffect_new)
 			player_die()
 			break
 		end
@@ -115,6 +116,7 @@ function m:update()
 		if collide(v.obj, player.obj) then
 			v:free()
 			if player:hurt() <= 0 then
+				audio.play(shipDestroyEffect_new)
 				player_die()
 				break
 			end

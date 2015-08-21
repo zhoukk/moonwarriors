@@ -30,11 +30,11 @@ game.mode = 1
 
 math.randomseed(os.time())
 
-mainMainMusic_new = 1
-audio.load(mainMainMusic_new, "asset/wav/mainMainMusic_new.wav")
-
-buttonEffet_new = 2
-audio.load(buttonEffet_new, "asset/wav/buttonEffet_new.wav")
+mainMainMusic_new = audio.load("asset/wav/mainMainMusic_new.wav")
+buttonEffet_new = audio.load("asset/wav/buttonEffet_new.wav")
+bgMusic_new = audio.load("asset/wav/bgMusic_new.wav")
+explodeEffect_new = audio.load("asset/wav/explodeEffect_new.wav")
+shipDestroyEffect_new = audio.load("asset/wav/shipDestroyEffect_new.wav")
 
 ui:show("ui.loading")
 
@@ -60,5 +60,12 @@ pixel.start {
 	end,
 	handle_error = function(...)
 		pixel.log(...)
+	end,
+	unit = function()
+		audio.unload(mainMainMusic_new)
+		audio.unload(buttonEffet_new)
+		audio.unload(bgMusic_new)
+		audio.unload(explodeEffect_new)
+		audio.unload(shipDestroyEffect_new)
 	end,
 }

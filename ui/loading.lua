@@ -49,6 +49,8 @@ local function move_end(obj)
 	end)
 end
 
+local bgmusic
+
 function m:show()
 	pos.x = math.random()*game.width
 	pos.y = game.height
@@ -56,13 +58,13 @@ function m:show()
 	tar.y = 200+math.random()*20
 	move_end(obj.ship)
 	if game.sound == 1 then
-		audio.play(mainMainMusic_new, true)
+		bgmusic = audio.play(mainMainMusic_new, true)
 	end
 end
 
 function m:hide()
 	move_cancel()
-	audio.stop(mainMainMusic_new)
+	audio.stop(bgmusic)
 end
 
 function m:draw()
